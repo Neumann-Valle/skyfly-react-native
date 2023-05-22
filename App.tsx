@@ -1,31 +1,41 @@
 import { StatusBar } from "expo-status-bar";
-import { Text, View, ImageBackground } from "react-native";
+import {
+  Text,
+  View,
+  ImageBackground,
+  StyleProp,
+  ViewStyle,
+  StyleSheet,
+} from "react-native";
 import background from "./assets/clever-visuals-78owYIt_neU-unsplash.jpg";
 
 type DottedProps = {
-  numberofdotted: number;
+  numberofdots: number;
   backgroundColor: string;
+  style?: {};
 };
 
 const Dotted = (props: DottedProps) => {
+  const usestyles = {
+    ...styles,
+    ...props.style,
+    container: {
+      ...styles.container,
+      backgroundColor: "lightgrey",
+    },
+  };
+
   const views = [];
-  for (let i = 0; i <= props.numberofdotted; i++) {
-    views.push(
-      <View
-        key={i}
-        style={{
-          height: 1,
-          width: "5%",
-          backgroundColor: props.backgroundColor,
-        }}
-      ></View>
-    );
+  for (let i = 0; i <= props.numberofdots; i++) {
+    views.push(<View key={i} style={styles.container}></View>);
   }
   return (
     <>
-      {views.map((item) => {
-        return item;
-      })}
+      <View style={styles.arrContainer}>
+        {views.map((item, index) => {
+          return item;
+        })}
+      </View>
     </>
   );
 };
@@ -68,7 +78,7 @@ export default function App() {
               <Text>Button3</Text>
             </View>
           </View>
-          <Text style={{ padding: 10, fontSize: 35, fontWeight: "bold" }}>
+          <Text style={{ padding: 10, fontSize: 30, fontWeight: "bold" }}>
             2 tickets
           </Text>
 
@@ -82,10 +92,10 @@ export default function App() {
               borderBottomEndRadius: 35,
               borderBottomLeftRadius: 35,
             }}
-          ></View>
-          <View style={{ width: "70%", flexDirection: "row", gap: 15 }}>
-            <Dotted numberofdotted={9} backgroundColor="lightgrey" />
+          >
+            <Dotted numberofdots={10} backgroundColor="lightgrey" />
           </View>
+          <Dotted numberofdots={9} backgroundColor="lightgrey" />
           <View
             style={{
               backgroundColor: "#fff",
@@ -96,10 +106,25 @@ export default function App() {
               borderTopEndRadius: 35,
               borderTopLeftRadius: 35,
             }}
-          ></View>
+          >
+            {}
+          </View>
         </View>
       </ImageBackground>
       <StatusBar style="auto" />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "lightgrey",
+    height: 1,
+    width: "5%",
+  },
+  arrContainer: {
+    width: "70%",
+    flexDirection: "row",
+    gap: 15,
+  },
+});
